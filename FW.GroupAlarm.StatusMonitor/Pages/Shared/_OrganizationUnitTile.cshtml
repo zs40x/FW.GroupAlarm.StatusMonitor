@@ -26,7 +26,7 @@
             <div class="card-footer text-muted">
                 @foreach (var label in Model.Labels)
                 {
-                    <span class="badge badge-secondary" style="color: @label.RgbColorCode">@label.Name  (@label.AssigneeCount)</span>
+                    <span class="badge badge-secondary" style="color: @label.RgbColorCode">@label.Name  (@label.AvailableCount / @label.AssigneeCount)</span>
                 }
             </div>
         </div>
