@@ -5,6 +5,6 @@ namespace FW.GA.StatusMonitor.Core.Interfaces
 {
     public interface IOrganizationService
     {
-        public List<Organization> All()
+        IEnumerable<Organization> All();
     }
 }
