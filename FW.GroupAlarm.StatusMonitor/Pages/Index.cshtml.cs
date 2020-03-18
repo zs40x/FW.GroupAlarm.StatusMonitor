@@ -42,7 +42,7 @@ namespace FW.GroupAlarm.StatusMonitor.Pages
 
         public List<OrganisationUnitLabelModel> RetrieveOrganizationLabels(int organisationId)
         {
-            return _organizationService.AllLabels(organisationId)
+            return _organizationService.LabelsInOrganisation(organisationId)
                                         .Select(l => new OrganisationUnitLabelModel
                                         {
                                             Name = l.Name,

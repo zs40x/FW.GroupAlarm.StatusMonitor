@@ -32,7 +32,7 @@ namespace Fw.GA.StatusMonitor.Infrastructure.GroupAlarmApi
             }
         }
 
-        public List<Label> AllLabels(int organizationId)
+        public List<Label> LabelsInOrganisation(int organizationId)
         {
             using (var client = MakeHttpClient())
             using (var request = new HttpRequestMessage(HttpMethod.Get, $"{_webServiceBaseUrl}/labels?organization={organizationId}"))
