@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using FW.GA.StatusMonitor.Core.Interfaces;
+﻿using FW.GA.StatusMonitor.Core.Interfaces;
 using FW.GroupAlarm.StatusMonitor.Model;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace FW.GroupAlarm.StatusMonitor.Pages
 {
