@@ -1,4 +1,6 @@
-﻿namespace FW.GroupAlarm.StatusMonitor.Model
+﻿using System.Collections.Generic;
+
+namespace FW.GroupAlarm.StatusMonitor.Model
 {
     public class OrganisationUnitModel
     {
@@ -7,5 +9,6 @@
         public int CountAvailable { get; set; }
         public int CountInEvent { get; set; }
         public int CountNotAvailable { get; set; }
+        public List<OrganisationUnitLabelModel> Labels { get; set; }
     }
 }
