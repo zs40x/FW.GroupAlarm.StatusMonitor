@@ -46,7 +46,8 @@ namespace FW.GroupAlarm.StatusMonitor.Pages
                                         .Select(l => new OrganisationUnitLabelModel
                                         {
                                             Name = l.Name,
-                                            AssigneeCount = l.Assignees?.Count ?? 0
+                                            AssigneeCount = l.Assignees?.Count ?? 0,
+                                            RgbColorCode = l.Color
                                         })
                                         .ToList();
         }
