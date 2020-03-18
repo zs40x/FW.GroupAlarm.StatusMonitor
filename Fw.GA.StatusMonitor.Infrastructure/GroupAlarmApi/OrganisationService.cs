@@ -32,7 +32,7 @@ namespace Fw.GA.StatusMonitor.Infrastructure.GroupAlarmApi
                     response.EnsureSuccessStatusCode();
 
                     var content = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
-                    return JsonConvert.DeserializeObject<OrganizationList>(content)?.Path ?? new List<Organization>();
+                    return JsonConvert.DeserializeObject<OrganizationStructure>(content)?.Path ?? new List<Organization>();
                 }
             }
         }
