@@ -9,6 +9,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FW.GA.StatusMonitor.Core", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fw.GA.StatusMonitor.Infrastructure", "Fw.GA.StatusMonitor.Infrastructure\Fw.GA.StatusMonitor.Infrastructure.csproj", "{C5E7BAF4-14E7-4357-951B-A045AE166BA5}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2381A3AA-FCA4-4EF7-86F8-A37975C9A025}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

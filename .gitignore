@@ -338,3 +338,8 @@ ASALocalRun/
 
 # BeatPulse healthcheck temp database
 healthchecksdb
+
+# Do not track specifig appSettings
+**/appsettings.development.json
+**/appsettings.staging.json
+**/appsettings.production.json
