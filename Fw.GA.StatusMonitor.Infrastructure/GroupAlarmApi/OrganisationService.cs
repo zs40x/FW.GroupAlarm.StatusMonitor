@@ -45,6 +45,19 @@ namespace Fw.GA.StatusMonitor.Infrastructure.GroupAlarmApi
             }
         }
 
+        public List<User> UserInOrganisation(int organizationId)
+        {
+            using (var client = MakeHttpClient())
+            using (var request = new HttpRequestMessage(HttpMethod.Get, $"{_webServiceBaseUrl}/users?organization={organizationId}"))
+            using (var response = client.SendAsync(request).GetAwaiter().GetResult())
+            {
+                response.EnsureSuccessStatusCode();
+
+                var content = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+                return JsonConvert.DeserializeObject<List<User>>(content) ?? new List<User>();
+            }
+        }
+
         private HttpClient MakeHttpClient()
         {
             var client = new HttpClient();

@@ -7,5 +7,6 @@ namespace FW.GA.StatusMonitor.Core.Interfaces
     {
         OrganizationStructure Get();
         List<Label> AllLabels(int organizationId);
+        List<User> UserInOrganisation(int organizationId);
     }
 }
