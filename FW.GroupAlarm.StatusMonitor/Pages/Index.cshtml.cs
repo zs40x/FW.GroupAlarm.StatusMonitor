@@ -28,16 +28,16 @@ namespace FW.GroupAlarm.StatusMonitor.Pages
         private List<OrganisationUnitModel> RetrieveOrganisationUnits()
         {
             return _organizationService.Get()
-                                .Childs?.Select(c => new OrganisationUnitModel
-                                {
-                                    Name = c.Name,
-                                    Description = c.Description,
-                                    CountAvailable = c.AvailableUsers.CountAvailable,
-                                    CountInEvent = c.AvailableUsers.CountInEvent,
-                                    CountNotAvailable = c.AvailableUsers.CountNotAvailable,
-                                    Labels = RetrieveOrganizationLabels(c.Id)
-                                })
-                                .ToList();
+                                        .Childs?.Select(c => new OrganisationUnitModel
+                                        {
+                                            Name = c.Name,
+                                            Description = c.Description,
+                                            CountAvailable = c.AvailableUsers.CountAvailable,
+                                            CountInEvent = c.AvailableUsers.CountInEvent,
+                                            CountNotAvailable = c.AvailableUsers.CountNotAvailable,
+                                            Labels = RetrieveOrganizationLabels(c.Id)
+                                        })
+                                        .ToList();
         }
 
         public List<OrganisationUnitLabelModel> RetrieveOrganizationLabels(int organisationId)
