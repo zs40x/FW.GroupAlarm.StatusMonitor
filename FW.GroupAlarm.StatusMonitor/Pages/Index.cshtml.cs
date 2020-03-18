@@ -42,11 +42,16 @@ namespace FW.GroupAlarm.StatusMonitor.Pages
 
         public List<OrganisationUnitLabelModel> RetrieveOrganizationLabels(int organisationId)
         {
+            var users = _organizationService.UserInOrganisation(organisationId);
+
             return _organizationService.LabelsInOrganisation(organisationId)
                                         .Select(l => new OrganisationUnitLabelModel
                                         {
                                             Name = l.Name,
                                             AssigneeCount = l.Assignees?.Count ?? 0,
+                                            AvailableCount = l.Assignees?
+                                                                .Select(a => users.FirstOrDefault(u => u.Id == a))
+                                                                .Count(u => u.AvailableStatus == 1) ?? 0,
                                             RgbColorCode = l.Color
                                         })
                                         .ToList();
