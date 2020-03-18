@@ -25,17 +25,33 @@ namespace FW.GroupAlarm.StatusMonitor.Pages
 
         public void OnGet()
         {
-            OrganisationUnits = 
-                _organizationService.Get()
-                    .Childs?.Select(c => new OrganisationUnitModel
-                    {
-                        Name = c.Name,
-                        Description = c.Description,
-                        CountAvailable = c.AvailableUsers.CountAvailable,
-                        CountInEvent = c.AvailableUsers.CountInEvent,
-                        CountNotAvailable = c.AvailableUsers.CountNotAvailable
-                    })
-                    .ToList();
+            OrganisationUnits = RetrieveOrganisationUnits();
+        }
+
+        private List<OrganisationUnitModel> RetrieveOrganisationUnits()
+        {
+            return _organizationService.Get()
+                                .Childs?.Select(c => new OrganisationUnitModel
+                                {
+                                    Name = c.Name,
+                                    Description = c.Description,
+                                    CountAvailable = c.AvailableUsers.CountAvailable,
+                                    CountInEvent = c.AvailableUsers.CountInEvent,
+                                    CountNotAvailable = c.AvailableUsers.CountNotAvailable,
+                                    Labels = RetrieveOrganizationLabels(c.Id)
+                                })
+                                .ToList();
+        }
+
+        public List<OrganisationUnitLabelModel> RetrieveOrganizationLabels(int organisationId)
+        {
+            return _organizationService.AllLabels(organisationId)
+                                        .Select(l => new OrganisationUnitLabelModel
+                                        {
+                                            Name = l.Name,
+                                            AssigneeCount = l.Assignees?.Count ?? 0
+                                        })
+                                        .ToList();
         }
     }
 }
