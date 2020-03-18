@@ -1,8 +1,7 @@
 ﻿using FW.GA.StatusMonitor.Core.Interfaces;
 using FW.GA.StatusMonitor.Core.ValueTypes.DTO.GroupAlarm;
-using System.Collections.Generic;
-using System.Net.Http;
 using Newtonsoft.Json;
+using System.Net.Http;
 
 namespace Fw.GA.StatusMonitor.Infrastructure.GroupAlarmApi
 {
