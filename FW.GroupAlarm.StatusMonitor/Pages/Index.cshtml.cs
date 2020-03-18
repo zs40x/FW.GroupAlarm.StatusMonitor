@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using FW.GA.StatusMonitor.Core.Interfaces;
+using FW.GroupAlarm.StatusMonitor.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
@@ -14,6 +15,8 @@ namespace FW.GroupAlarm.StatusMonitor.Pages
         private readonly ILogger<IndexModel> _logger;
         private readonly IOrganizationService _organizationService;
 
+        public List<OrganisationUnitModel> OrganisationUnits { get; set; }
+
         public IndexModel(ILogger<IndexModel> logger, IOrganizationService organizationService)
         {
             _logger = logger;
@@ -22,7 +25,16 @@ namespace FW.GroupAlarm.StatusMonitor.Pages
 
         public void OnGet()
         {
-            var z = _organizationService.Get();
+            OrganisationUnits = 
+                _organizationService.Get()
+                    .Childs?.Select(c => new OrganisationUnitModel
+                    {
+                        Name = c.Name,
+                        CountAvailable = c.AvailableUsers.CountAvailable,
+                        CountInEvent = c.AvailableUsers.CountInEvent,
+                        CountNotAvailable = c.AvailableUsers.CountNotAvailable
+                    })
+                    .ToList();
         }
     }
 }
