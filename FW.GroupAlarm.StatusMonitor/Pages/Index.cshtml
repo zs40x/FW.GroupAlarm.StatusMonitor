@@ -4,7 +4,7 @@
     ViewData["Title"] = "Home page";
 }
 
-<div class="row">
+<div class="row m-1 p-1">
     @foreach (var organisationUnit in Model.OrganisationUnits)
     {
         @(await Html.PartialAsync("_OrganizationUnitTile", organisationUnit))
