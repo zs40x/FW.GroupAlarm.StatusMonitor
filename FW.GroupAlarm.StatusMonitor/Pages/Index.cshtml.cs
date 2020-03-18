@@ -22,7 +22,7 @@ namespace FW.GroupAlarm.StatusMonitor.Pages
 
         public void OnGet()
         {
-            var z = _organizationService.All();
+            var z = _organizationService.Get();
         }
     }
 }

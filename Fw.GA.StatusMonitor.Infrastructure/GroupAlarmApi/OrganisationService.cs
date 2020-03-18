@@ -19,7 +19,7 @@ namespace Fw.GA.StatusMonitor.Infrastructure.GroupAlarmApi
             _personalAccessToken = personalAccessToken;
         }
 
-        public IEnumerable<Organization> All()
+        public OrganizationStructure Get()
         {
             using (var client = new HttpClient())
             {
@@ -32,7 +32,7 @@ namespace Fw.GA.StatusMonitor.Infrastructure.GroupAlarmApi
                     response.EnsureSuccessStatusCode();
 
                     var content = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
-                    return JsonConvert.DeserializeObject<OrganizationStructure>(content)?.Path ?? new List<Organization>();
+                    return JsonConvert.DeserializeObject<OrganizationStructure>(content) ?? new OrganizationStructure();
                 }
             }
         }
