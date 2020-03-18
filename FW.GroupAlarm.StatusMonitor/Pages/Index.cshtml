@@ -4,9 +4,11 @@
     ViewData["Title"] = "Home page";
 }
 
-<div class="row m-1 p-1">
-    @foreach (var organisationUnit in Model.OrganisationUnits)
-    {
-        @(await Html.PartialAsync("_OrganizationUnitTile", organisationUnit))
-    }
-</div>
+    <div class="cardcontainer-fluid" v-else>
+        <div class="row justify-content-center">
+            @foreach (var organisationUnit in Model.OrganisationUnits)
+            {
+                @(await Html.PartialAsync("_OrganizationUnitTile", organisationUnit))
+            }
+        </div>
+    </div>
