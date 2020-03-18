@@ -26,7 +26,7 @@ namespace Fw.GA.StatusMonitor.Infrastructure.GroupAlarmApi
                 client.DefaultRequestHeaders.Add("API-KEY", _webApiKey);
                 client.DefaultRequestHeaders.Add("Personal-Access-Token", _personalAccessToken);
 
-                using (var request = new HttpRequestMessage(HttpMethod.Get, $"{_webServiceBaseUrl}/api/ExportJson"))
+                using (var request = new HttpRequestMessage(HttpMethod.Get, $"{_webServiceBaseUrl}/organization/6371/children"))
                 using (var response = client.SendAsync(request).GetAwaiter().GetResult())
                 {
                     response.EnsureSuccessStatusCode();
