@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Fw.GA.StatusMonitor.Infrastructure.GroupAlarmApi;
+using FW.GA.StatusMonitor.Core.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -24,6 +26,13 @@ namespace FW.GroupAlarm.StatusMonitor
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
+
+            services.AddSingleton(
+                (IOrganizationService)new OrganisationService(
+                        webServiceBaseUrl: Configuration.GetValue<string>("GroupAlarmApi:BaseUrl"),
+                        webApiKey: Configuration.GetValue<string>("GroupAlarmApi:OrganizationApiKey"),
+                        personalAccessToken: Configuration.GetValue<string>("GroupAlarmApi:PersonalAccessToken")
+                    ));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
