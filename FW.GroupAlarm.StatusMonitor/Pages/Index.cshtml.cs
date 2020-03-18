@@ -30,6 +30,7 @@ namespace FW.GroupAlarm.StatusMonitor.Pages
                     .Childs?.Select(c => new OrganisationUnitModel
                     {
                         Name = c.Name,
+                        Description = c.Description,
                         CountAvailable = c.AvailableUsers.CountAvailable,
                         CountInEvent = c.AvailableUsers.CountInEvent,
                         CountNotAvailable = c.AvailableUsers.CountNotAvailable

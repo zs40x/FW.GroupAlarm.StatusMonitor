@@ -9,6 +9,10 @@
     <ProjectReference Include="..\Fw.GA.StatusMonitor.Infrastructure\Fw.GA.StatusMonitor.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="ViewModel\" />
+  </ItemGroup>
+
 
 
 </Project>
