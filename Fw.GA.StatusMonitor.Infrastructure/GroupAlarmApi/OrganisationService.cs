@@ -21,19 +21,14 @@ namespace Fw.GA.StatusMonitor.Infrastructure.GroupAlarmApi
 
         public OrganizationStructure Get()
         {
-            using (var client = new HttpClient())
+            using (var client = MakeHttpClient())
+            using (var request = new HttpRequestMessage(HttpMethod.Get, $"{_webServiceBaseUrl}/organization/6371/children"))
+            using (var response = client.SendAsync(request).GetAwaiter().GetResult())
             {
-                client.DefaultRequestHeaders.Add("API-KEY", _webApiKey);
-                client.DefaultRequestHeaders.Add("Personal-Access-Token", _personalAccessToken);
+                response.EnsureSuccessStatusCode();
 
-                using (var request = new HttpRequestMessage(HttpMethod.Get, $"{_webServiceBaseUrl}/organization/6371/children"))
-                using (var response = client.SendAsync(request).GetAwaiter().GetResult())
-                {
-                    response.EnsureSuccessStatusCode();
-
-                    var content = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
-                    return JsonConvert.DeserializeObject<OrganizationStructure>(content) ?? new OrganizationStructure();
-                }
+                var content = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+                return JsonConvert.DeserializeObject<OrganizationStructure>(content) ?? new OrganizationStructure();
             }
         }
 
@@ -41,6 +36,14 @@ namespace Fw.GA.StatusMonitor.Infrastructure.GroupAlarmApi
         {
 
             return new List<Label>();
+        }
+
+        private HttpClient MakeHttpClient()
+        {
+            var client = new HttpClient();
+            client.DefaultRequestHeaders.Add("API-KEY", _webApiKey);
+            client.DefaultRequestHeaders.Add("Personal-Access-Token", _personalAccessToken);
+            return client;
         }
     }
 }
