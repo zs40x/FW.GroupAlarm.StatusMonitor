@@ -3,8 +3,8 @@ using System.Collections.Generic;
 
 namespace FW.GA.StatusMonitor.Core.Interfaces
 {
-    public class IOrganizationService
+    public interface IOrganizationService
     {
-        public List<Organization> All { get; set; }
+        public List<Organization> All()
     }
 }
