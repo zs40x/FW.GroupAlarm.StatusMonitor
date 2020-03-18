@@ -34,8 +34,15 @@ namespace Fw.GA.StatusMonitor.Infrastructure.GroupAlarmApi
 
         public List<Label> AllLabels(int organizationId)
         {
+            using (var client = MakeHttpClient())
+            using (var request = new HttpRequestMessage(HttpMethod.Get, $"{_webServiceBaseUrl}/labels?organization={organizationId}"))
+            using (var response = client.SendAsync(request).GetAwaiter().GetResult())
+            {
+                response.EnsureSuccessStatusCode();
 
-            return new List<Label>();
+                var content = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+                return JsonConvert.DeserializeObject<List<Label>>(content) ?? new List<Label>();
+            }
         }
 
         private HttpClient MakeHttpClient()
