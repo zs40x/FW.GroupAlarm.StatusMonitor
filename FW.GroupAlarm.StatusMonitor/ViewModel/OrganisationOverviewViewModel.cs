@@ -1,11 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using FW.GA.StatusMonitor.Core.Interfaces;
 
 namespace FW.GroupAlarm.StatusMonitor.ViewModel
 {
     public class OrganisationOverviewViewModel
     {
+        private readonly IOrganizationService _organizationService;
+
+        public OrganisationOverviewViewModel(IOrganizationService organizationService)
+        {
+            _organizationService = organizationService;
+        }
     }
 }
