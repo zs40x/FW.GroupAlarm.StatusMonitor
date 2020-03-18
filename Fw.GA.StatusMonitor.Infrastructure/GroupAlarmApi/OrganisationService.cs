@@ -1,6 +1,7 @@
 ﻿using FW.GA.StatusMonitor.Core.Interfaces;
 using FW.GA.StatusMonitor.Core.ValueTypes.DTO.GroupAlarm;
 using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.Net.Http;
 
 namespace Fw.GA.StatusMonitor.Infrastructure.GroupAlarmApi
@@ -34,6 +35,12 @@ namespace Fw.GA.StatusMonitor.Infrastructure.GroupAlarmApi
                     return JsonConvert.DeserializeObject<OrganizationStructure>(content) ?? new OrganizationStructure();
                 }
             }
+        }
+
+        public List<Label> AllLabels(int organizationId)
+        {
+
+            return new List<Label>();
         }
     }
 }
