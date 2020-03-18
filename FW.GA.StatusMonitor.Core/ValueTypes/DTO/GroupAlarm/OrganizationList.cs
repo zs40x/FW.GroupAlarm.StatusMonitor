@@ -2,7 +2,7 @@
 
 namespace FW.GA.StatusMonitor.Core.ValueTypes.DTO.GroupAlarm
 {
-    class OrganizationList
+    public class OrganizationList
     {
         public IEnumerable<Organization> Path { get; set; }
     }

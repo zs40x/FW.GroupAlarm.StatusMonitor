@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace FW.GA.StatusMonitor.Core.Interfaces
 {
-    class IOrganizationService
+    public class IOrganizationService
     {
         public List<Organization> All { get; set; }
     }

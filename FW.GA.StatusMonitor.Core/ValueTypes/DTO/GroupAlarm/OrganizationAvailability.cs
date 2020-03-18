@@ -1,6 +1,6 @@
 ﻿namespace FW.GA.StatusMonitor.Core.ValueTypes.DTO.GroupAlarm
 {
-    class OrganizationAvailability
+    public class OrganizationAvailability
     {
         public int CountInEvent { get; set; }
         public int CountAvailable { get; set; }
