@@ -1,0 +1,32 @@
+﻿@using System.Globalization
+@model FW.GroupAlarm.StatusMonitor.Model.OrganisationUnitModel
+
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+    <div class="col-sm-6 col-md-4">
+        <div class="thumbnail">
+            <div class="caption">
+                <h3>
+                    @Model.Name
+
+                </h3>
+
+                <div class="row">
+                    <div class="col">
+                        <h3><span class="badge badge-success">@Model.CountAvailable</span></h3>
+                    </div>
+                    <div class="col">
+                        <h3><span class="badge badge-warning">@Model.CountInEvent</span></h3>
+                    </div>
+                    <div class="col">
+                        <h3><span class="badge badge-danger">@Model.CountNotAvailable</span></h3>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
