@@ -28,7 +28,9 @@ namespace FW.GroupAlarm.StatusMonitor.Pages
         private List<OrganisationUnitModel> RetrieveOrganisationUnits()
         {
             return _organizationService.Get()
-                                        .Childs?.Select(c => new OrganisationUnitModel
+                                        .Childs?
+                                        .Where(c => string.Compare(c.Description, "- n/a -") != 0)
+                                        .Select(c => new OrganisationUnitModel
                                         {
                                             Name = c.Name,
                                             Description = c.Description,
