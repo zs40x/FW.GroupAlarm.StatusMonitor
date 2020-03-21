@@ -4,6 +4,8 @@
     ViewData["Title"] = "Home page";
 }
 
+    @(await Html.PartialAsync("_OrganizationTotalsTile", Model.OrganisationTotals))
+
     <div class="cardcontainer-fluid">
         <div class="row justify-content-center">
             @foreach (var organisationUnit in Model.OrganisationUnits)
