@@ -107,6 +107,7 @@ namespace FW.GroupAlarm.StatusMonitor.Pages
 
             return OrganisationUnits
                     .SelectMany(u => u.Labels)
+                    .Where(u => !u.Name.ToLower().StartsWith("lg"))
                     .GroupBy(l => l.Name)
                     .Select(g => new OrganisationUnitLabelModel
                     {
