@@ -47,10 +47,7 @@ namespace FW.GroupAlarm.StatusMonitor.Pages
                                             CountNotAvailable = c.Child.AvailableUsers.CountNotAvailable,
                                             Labels = RetrieveOrganizationLabels(c.Child.Id, c.Users),
                                             Users = MakeUsers(c.Users),
-                                            TotalStrength =
-                                                c.Child.AvailableUsers.CountAvailable
-                                                + c.Child.AvailableUsers.CountInEvent
-                                                + c.Child.AvailableUsers.CountNotAvailable
+                                            TotalStrength = c.Users.Count
                                         })
                                         .ToList();
         }
