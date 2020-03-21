@@ -45,6 +45,7 @@ namespace FW.GroupAlarm.StatusMonitor.Pages
                                             CountAvailable = c.Child.AvailableUsers.CountAvailable,
                                             CountInEvent = c.Child.AvailableUsers.CountInEvent,
                                             CountNotAvailable = c.Child.AvailableUsers.CountNotAvailable,
+                                            CountRegistrationPending = c.Users.Count(c => c.Pending),
                                             Labels = RetrieveOrganizationLabels(c.Child.Id, c.Users),
                                             Users = MakeUsers(c.Users),
                                             TotalStrength = c.Users.Count
