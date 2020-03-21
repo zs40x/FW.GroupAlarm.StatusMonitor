@@ -70,11 +70,15 @@ namespace FW.GroupAlarm.StatusMonitor.Pages
 
         private List<OrganisationUnitUserModel> MakeUsers(List<User> users)
         {
-            return users.Select(u => new OrganisationUnitUserModel
-            {
-                Name = $"{u.Surname} {u.Name}",
-                IsAvailable = u.AvailableStatus == 1
-            }).ToList();
+            return users
+                .Where(u => !u.Pending)
+                .OrderBy(u=> u.Surname)
+                .Select(u => new OrganisationUnitUserModel
+                {
+                    Name = $"{u.Surname}, {u.Name}",
+                    IsAvailable = u.AvailableStatus == 1
+                })
+                .ToList();
         }
     }
 }
