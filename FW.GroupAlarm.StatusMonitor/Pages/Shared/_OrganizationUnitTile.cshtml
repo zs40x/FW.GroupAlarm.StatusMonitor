@@ -28,9 +28,14 @@
                 <span class="badge badge-light" style="color: @label.RgbColorCode">@label.Name <span style="background-color: white">(<span style="color: green">@label.AvailableCount</span> / <span style="color: red">@label.AssigneeCount</span>)</span></span>
             }
 
+            @foreach (var user in Model.Users)
+            {
+                @user.Name
+            }
+
             <div class="card-footer text-muted">
                 Gesamtstärke: @Model.TotalStrength FM
             </div>
         </div>
-    </div>
+</div>
    
