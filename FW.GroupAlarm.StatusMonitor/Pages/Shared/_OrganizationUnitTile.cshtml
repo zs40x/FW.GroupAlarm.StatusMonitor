@@ -8,8 +8,8 @@
 }
     <div class="card m-2" style="width: 20rem;">
         <div class="card-body">
-            <h5 class="card-title">@Model.Name</h5>
-            <h6 class="card-subtitle mb-2 text-muted">@Model.Description</h6>
+            <h5 class="card-title">@Model.Description</h5>
+            <h6 class="card-subtitle mb-2 text-muted">@Model.Name</h6>
 
             <div class="container">
                 <div class="row">
@@ -30,7 +30,7 @@
 
             @foreach (var label in Model.Labels)
             {
-                <span class="badge badge-light" style="color: @label.RgbColorCode">@label.Name <span style="background-color: white">(<span style="color: green">@label.AvailableCount</span> / <span style="color: red">@label.AssigneeCount</span>)</span></span>
+                <span class="badge badge-light" style="color: @label.RgbColorCode">@label.Name <span style="background-color: white">(<span style="color: green">@label.AvailableCount</span> / <span style="color: red">@label.NotAvailableCount</span> / <span style="color: silver"><u>@label.AssigneeCount</u></span>)</span></span>
             }
 
             <div class="row mt-2">
