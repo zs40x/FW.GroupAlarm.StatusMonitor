@@ -6,21 +6,18 @@
     <div class="card m-2" style="width: 20rem;">
         <div class="card-body">
             <h5 class="card-title">@Model.Description</h5>
-            <h6 class="card-subtitle mb-2 text-muted">@Model.Name</h6>
+            <h6 class="card-subtitle mb-2 text-muted">@Model.Name (@Model.TotalStrength)</h6>
 
             <div class="container">
                 <div class="row">
                     <div class="col">
-                        <h5><span class="badge badge-success" style="width: 2rem;">@Model.CountAvailable</span></h5>
+                        <h4><span class="badge badge-success" style="width: 3rem;">@Model.CountAvailable</span></h4>
                     </div>
                     <div class="col">
-                        <h5><span class="badge badge-info" style="width: 2rem;">@Model.CountInEvent</span></h5>
+                        <h4><span class="badge badge-danger" style="width: 3rem;">@Model.CountNotAvailable</span></h4>
                     </div>
                     <div class="col">
-                        <h5><span class="badge badge-danger" style="width: 2rem;">@Model.CountNotAvailable</span></h5>
-                    </div>
-                    <div class="col">
-                        <h5><span class="badge badge-dark" style="width: 2rem;">@Model.CountRegistrationPending</span></h5>
+                        <h4><span class="badge badge-dark" style="width: 3rem;">@Model.CountRegistrationPending</span></h4>
                     </div>
                 </div>
             </div>
@@ -32,20 +29,17 @@
 
             <div class="row mt-2">
                 <div class="col">
-                    <a class="btn btn-primary" data-toggle="collapse" href="#@Model.CollapseId" role="button" aria-expanded="false" aria-controls="@Model.CollapseId">Einsatzkräfte (@Model.TotalStrength)</a>
-                    <div class="collapse multi-collapse" id="@Model.CollapseId">
-                        @foreach (var user in Model.Users)
+                    @foreach (var user in Model.Users)
+                    {
+                        @if (user.IsAvailable)
                         {
-                            @if (user.IsAvailable)
-                            {
-                                <span class="badge badge-pill badge-success">@user.Name</span>
-                            }
-                            else
-                            {
-                                <span class="badge badge-pill badge-danger">@user.Name</span>
-                            }
+                            <span class="badge badge-pill badge-success">@user.Name</span>
                         }
-                    </div>
+                        else
+                        {
+                            <span class="badge badge-pill badge-danger">@user.Name</span>
+                        }
+                    }
                 </div>
             </div>
         </div>
