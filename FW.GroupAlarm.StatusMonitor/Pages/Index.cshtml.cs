@@ -116,6 +116,7 @@ namespace FW.GroupAlarm.StatusMonitor.Pages
                         AssigneeCount = g.Sum(l => l.AssigneeCount),
                         AvailableCount = g.Sum(l => l.AvailableCount)
                     })
+                    .OrderBy(l => l.RgbColorCode).ThenBy(l => l.Name)
                     .ToList();
         }
     }
