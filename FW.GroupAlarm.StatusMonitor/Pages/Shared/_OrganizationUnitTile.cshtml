@@ -28,13 +28,20 @@
                 <span class="badge badge-light" style="color: @label.RgbColorCode">@label.Name <span style="background-color: white">(<span style="color: green">@label.AvailableCount</span> / <span style="color: red">@label.AssigneeCount</span>)</span></span>
             }
 
-        <div class="row mt-1">
+        <div class="row mt-2">
             <div class="col">
                 <a class="btn btn-primary" data-toggle="collapse" href="#@Model.CollapseId" role="button" aria-expanded="false" aria-controls="@Model.CollapseId">Einsatzkräfte (@Model.TotalStrength)</a>
                 <div class="collapse multi-collapse" id="@Model.CollapseId">
                     @foreach (var user in Model.Users)
                     {
-                        @user.Name
+                        @if (user.IsAvailable)
+                        {
+                            <span class="badge badge-pill badge-success">@user.Name</span>
+                        }
+                        else
+                        {
+                            <span class="badge badge-pill badge-danger">@user.Name</span>
+                        }
                     }
                 </div>
             </div>
