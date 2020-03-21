@@ -106,7 +106,17 @@ namespace FW.GroupAlarm.StatusMonitor.Pages
             if (OrganisationUnits == null)
                 throw new ArgumentNullException(nameof(OrganisationUnits));
 
-            return new List<OrganisationUnitLabelModel>();
+            return OrganisationUnits
+                    .SelectMany(u => u.Labels)
+                    .GroupBy(l => l.Name)
+                    .Select(g => new OrganisationUnitLabelModel
+                    {
+                        Name = g.Key,
+                        RgbColorCode = g.FirstOrDefault()?.RgbColorCode,
+                        AssigneeCount = g.Sum(l => l.AssigneeCount),
+                        AvailableCount = g.Sum(l => l.AvailableCount)
+                    })
+                    .ToList();
         }
     }
 }
