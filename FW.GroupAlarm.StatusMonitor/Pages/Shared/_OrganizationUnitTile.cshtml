@@ -30,7 +30,7 @@
 
         <div class="row mt-1">
             <div class="col">
-                <a class="btn btn-primary" data-toggle="collapse" href="#@Model.CollapseId" role="button" aria-expanded="false" aria-controls="@Model.CollapseId">Einsatzkräfte</a>
+                <a class="btn btn-primary" data-toggle="collapse" href="#@Model.CollapseId" role="button" aria-expanded="false" aria-controls="@Model.CollapseId">Einsatzkräfte (@Model.TotalStrength)</a>
                 <div class="collapse multi-collapse" id="@Model.CollapseId">
                     @foreach (var user in Model.Users)
                     {
@@ -39,10 +39,6 @@
                 </div>
             </div>
         </div>
-
-            <div class="card-footer text-muted">
-                Gesamtstärke: @Model.TotalStrength FM
-            </div>
-        </div>
+    </div>
 </div>
    
