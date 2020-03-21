@@ -1,7 +1,8 @@
 # FW.GroupAlarm.StatusMonitor
 Dashboard für GroupAlarm - Überwachung der Einsatzbereitschaft aller Einheiten
 
-Configuration: Set GroupAlarmApi keys in appsettings.development.json for local usage and set the keys on deployment.
+# Configuration
+Set GroupAlarmApi keys in appsettings.development.json for local usage and set the keys on deployment.
 
 ```javascript
 {
