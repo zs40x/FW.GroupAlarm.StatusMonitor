@@ -69,6 +69,7 @@ namespace FW.GroupAlarm.StatusMonitor.Pages
                                                                 .Count(u => u.AvailableStatus == 1) ?? 0,
                                             RgbColorCode = l.Color
                                         })
+                                        .OrderByDescending(l => l.RgbColorCode).ThenBy(l => l.Name)
                                         .ToList();
         }
 
@@ -116,7 +117,7 @@ namespace FW.GroupAlarm.StatusMonitor.Pages
                         AssigneeCount = g.Sum(l => l.AssigneeCount),
                         AvailableCount = g.Sum(l => l.AvailableCount)
                     })
-                    .OrderBy(l => l.RgbColorCode).ThenBy(l => l.Name)
+                    .OrderByDescending(l => l.RgbColorCode).ThenBy(l => l.Name)
                     .ToList();
         }
     }
