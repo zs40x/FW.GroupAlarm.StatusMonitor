@@ -4,13 +4,14 @@
     ViewData["Title"] = "Home page";
 }
 
-    @(await Html.PartialAsync("_OrganizationTotalsTile", Model.OrganisationTotals))
+@(await Html.PartialAsync("_OrganizationTotalsTile", Model.OrganisationTotals))
+@(await Html.PartialAsync("_OrganizationLabelTotals", Model.OrganisationTotals))
 
-    <div class="cardcontainer-fluid">
-        <div class="row justify-content-center">
-            @foreach (var organisationUnit in Model.OrganisationUnits)
-            {
-                @(await Html.PartialAsync("_OrganizationUnitTile", organisationUnit))
-            }
-        </div>
+<div class="cardcontainer-fluid">
+    <div class="row justify-content-center">
+        @foreach (var organisationUnit in Model.OrganisationUnits)
+        {
+            @(await Html.PartialAsync("_OrganizationUnitTile", organisationUnit))
+        }
     </div>
+</div>

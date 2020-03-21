@@ -1,0 +1,11 @@
+﻿@using System.Globalization
+@model FW.GroupAlarm.StatusMonitor.Model.OrganizationTotalsModel
+@{
+
+}
+    <div class="container">
+        @foreach (var label in Model.LabelTotals)
+        {
+            <span class="badge badge-light" style="color: @label.RgbColorCode">@label.Name <span style="background-color: white">(<span style="color: green">@label.AvailableCount</span> / <span style="color: red">@label.NotAvailableCount</span> / <span style="color: silver"><u>@label.AssigneeCount</u></span>)</span></span>
+        }
+    </div>
