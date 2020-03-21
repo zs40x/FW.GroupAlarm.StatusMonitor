@@ -11,5 +11,6 @@ namespace FW.GA.StatusMonitor.Core.ValueTypes.DTO.GroupAlarm
         public string Name { get; set; }
         public string Surname { get; set; }
         public int AvailableStatus { get; set; }
+        public bool Pending { get; set; }
     }
 }
