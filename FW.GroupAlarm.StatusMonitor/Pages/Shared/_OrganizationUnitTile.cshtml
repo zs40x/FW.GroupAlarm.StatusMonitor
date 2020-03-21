@@ -28,10 +28,17 @@
                 <span class="badge badge-light" style="color: @label.RgbColorCode">@label.Name <span style="background-color: white">(<span style="color: green">@label.AvailableCount</span> / <span style="color: red">@label.AssigneeCount</span>)</span></span>
             }
 
-            @foreach (var user in Model.Users)
-            {
-                @user.Name
-            }
+        <div class="row mt-1">
+            <div class="col">
+                <a class="btn btn-primary" data-toggle="collapse" href="#@Model.CollapseId" role="button" aria-expanded="false" aria-controls="@Model.CollapseId">Einsatzkräfte</a>
+                <div class="collapse multi-collapse" id="@Model.CollapseId">
+                    @foreach (var user in Model.Users)
+                    {
+                        @user.Name
+                    }
+                </div>
+            </div>
+        </div>
 
             <div class="card-footer text-muted">
                 Gesamtstärke: @Model.TotalStrength FM
