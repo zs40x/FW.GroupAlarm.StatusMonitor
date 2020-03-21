@@ -55,6 +55,7 @@ namespace FW.GroupAlarm.StatusMonitor.Pages
         public List<OrganisationUnitLabelModel> RetrieveOrganizationLabels(int organisationId, List<User> users)
         {
             return _organizationService.LabelsInOrganisation(organisationId)
+                                        .Where(l => l.Assignees?.Count > 0)
                                         .Select(l => new OrganisationUnitLabelModel
                                         {
                                             Name = l.Name,
