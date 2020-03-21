@@ -10,5 +10,6 @@ namespace FW.GroupAlarm.StatusMonitor.Model
         public int CountInEvent { get; set; }
         public int CountNotAvailable { get; set; }
         public List<OrganisationUnitLabelModel> Labels { get; set; }
+        public List<OrganisationUnitUserModel> Users { get; set; }
     }
 }
