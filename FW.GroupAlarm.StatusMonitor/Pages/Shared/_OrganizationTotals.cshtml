@@ -19,3 +19,16 @@
             </div>
         </div>
     </div>
+
+    <div class="container">
+        <h4>
+            @foreach (var label in Model.LabelTotals)
+            {
+
+                <span class="badge badge-dark" style="color: @label.RgbColorCode">
+                    @label.Name (<span style="color: limegreen">@label.AvailableCount</span> / <span style="color: red">@label.NotAvailableCount</span> / <u>@label.AssigneeCount</u>
+                </span>
+
+            }
+        </h4>
+    </div>
