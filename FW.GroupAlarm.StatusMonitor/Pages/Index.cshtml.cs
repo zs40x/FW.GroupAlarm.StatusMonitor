@@ -16,6 +16,7 @@ namespace FW.GroupAlarm.StatusMonitor.Pages
 
         public List<OrganisationUnitModel> OrganisationUnits { get; set; }
         public OrganizationTotalsModel OrganisationTotals { get; set; }
+        public List<OrganisationUnitLabelModel> OrganisationLabelTotals { get; set; }
 
         public IndexModel(ILogger<IndexModel> logger, IOrganizationService organizationService)
         {
@@ -25,9 +26,10 @@ namespace FW.GroupAlarm.StatusMonitor.Pages
 
         public void OnGet()
         {
-            OrganisationUnits = RetrieveOrganisationUnits();
             // ToDo: Warning: Temporal coupling!
+            OrganisationUnits = RetrieveOrganisationUnits();
             OrganisationTotals = MakeOrganizationTotals();
+            OrganisationLabelTotals = MakeOrganizationLabelTotals();
         }
 
         private List<OrganisationUnitModel> RetrieveOrganisationUnits()
@@ -97,6 +99,14 @@ namespace FW.GroupAlarm.StatusMonitor.Pages
                 TotalNotAvailable = OrganisationUnits.Sum(u => u.CountNotAvailable),
                 TotalRegistrationPending = OrganisationUnits.Sum(u => u.CountRegistrationPending)
             };
+        }
+
+        private List<OrganisationUnitLabelModel> MakeOrganizationLabelTotals()
+        {
+            if (OrganisationUnits == null)
+                throw new ArgumentNullException(nameof(OrganisationUnits));
+
+            return new List<OrganisationUnitLabelModel>();
         }
     }
 }
