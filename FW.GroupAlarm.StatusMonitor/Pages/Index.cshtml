@@ -4,7 +4,7 @@
     ViewData["Title"] = "Home page";
 }
 
-@(await Html.PartialAsync("_OrganizationTotalsTile", Model.OrganisationTotals))
+@(await Html.PartialAsync("_OrganizationTotals", Model.OrganisationTotals))
 @(await Html.PartialAsync("_OrganizationLabelTotals", Model.OrganisationTotals))
 
 <div class="cardcontainer-fluid">
