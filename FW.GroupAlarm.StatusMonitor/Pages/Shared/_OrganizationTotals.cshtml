@@ -20,13 +20,13 @@
         </div>
     </div>
 
-    <div class="container">
+    <div class="container text-center"  mt-10">
         <h4>
             @foreach (var label in Model.LabelTotals)
             {
 
                 <span class="badge badge-dark" style="color: @label.RgbColorCode">
-                    @label.Name (<span style="color: limegreen">@label.AvailableCount</span> / <span style="color: red">@label.NotAvailableCount</span> / <u>@label.AssigneeCount</u>
+                    @label.Name (<span style="color: limegreen">@label.AvailableCount</span> / <span style="color: orangered">@label.NotAvailableCount</span> / <u>@label.AssigneeCount</u>)
                 </span>
 
             }

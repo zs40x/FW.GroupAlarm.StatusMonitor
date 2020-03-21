@@ -1,12 +1,12 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Dashboard";
 }
 
 @(await Html.PartialAsync("_OrganizationTotals", Model.OrganisationTotals))
 
-<div class="cardcontainer-fluid">
+<div class="cardcontainer-fluid mt-3">
     <div class="row justify-content-center">
         @foreach (var organisationUnit in Model.OrganisationUnits)
         {
