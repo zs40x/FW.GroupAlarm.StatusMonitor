@@ -3,7 +3,6 @@ using FW.GA.StatusMonitor.Core.ValueTypes.DTO.GroupAlarm;
 using FW.GroupAlarm.StatusMonitor.Model;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -72,7 +71,7 @@ namespace FW.GroupAlarm.StatusMonitor.Pages
         {
             return users
                 .Where(u => !u.Pending)
-                .OrderBy(u=> u.Surname)
+                .OrderBy(u => u.Surname)
                 .Select(u => new OrganisationUnitUserModel
                 {
                     Name = $"{u.Surname}, {u.Name}",
