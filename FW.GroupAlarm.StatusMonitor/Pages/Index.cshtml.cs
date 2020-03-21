@@ -3,6 +3,7 @@ using FW.GA.StatusMonitor.Core.ValueTypes.DTO.GroupAlarm;
 using FW.GroupAlarm.StatusMonitor.Model;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -14,6 +15,7 @@ namespace FW.GroupAlarm.StatusMonitor.Pages
         private readonly IOrganizationService _organizationService;
 
         public List<OrganisationUnitModel> OrganisationUnits { get; set; }
+        public OrganizationTotalsModel OrganisationTotals { get; set; }
 
         public IndexModel(ILogger<IndexModel> logger, IOrganizationService organizationService)
         {
@@ -24,6 +26,8 @@ namespace FW.GroupAlarm.StatusMonitor.Pages
         public void OnGet()
         {
             OrganisationUnits = RetrieveOrganisationUnits();
+            // ToDo: Warning: Temporal coupling!
+            OrganisationTotals = MakeOrganizationTotals();
         }
 
         private List<OrganisationUnitModel> RetrieveOrganisationUnits()
@@ -79,6 +83,20 @@ namespace FW.GroupAlarm.StatusMonitor.Pages
                     IsAvailable = u.AvailableStatus == 1
                 })
                 .ToList();
+        }
+
+        private OrganizationTotalsModel MakeOrganizationTotals()
+        {
+            if (OrganisationUnits == null)
+                throw new ArgumentNullException(nameof(OrganisationUnits));
+
+            return new OrganizationTotalsModel
+            {
+                TotalAvailable = OrganisationUnits.Sum(u => u.CountAvailable),
+                TotalInEvent = OrganisationUnits.Sum(u => u.CountInEvent),
+                TotalNotAvailable = OrganisationUnits.Sum(u => u.CountNotAvailable),
+                TotalRegistrationPending = OrganisationUnits.Sum(u => u.CountRegistrationPending)
+            };
         }
     }
 }
