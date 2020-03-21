@@ -6,23 +6,25 @@
 *@
 @{
 }
-    <div class="card m-2" style="width: 16rem;">
+    <div class="card m-2" style="width: 20rem;">
         <div class="card-body">
             <h5 class="card-title">@Model.Name</h5>
             <h6 class="card-subtitle mb-2 text-muted">@Model.Description</h6>
 
-            <div class="row">
-                <div class="col">
-                    <h3><span class="badge badge-success" style="width: 3rem;">@Model.CountAvailable</span></h3>
-                </div>
-                <div class="col">
-                    <h3><span class="badge badge-warning" style="width: 3rem;">@Model.CountInEvent</span></h3>
-                </div>
-                <div class="col">
-                    <h3><span class="badge badge-danger" style="width: 3rem;">@Model.CountNotAvailable</span></h3>
-                </div>
-                <div class="col">
-                    <h3><span class="badge badge-dark" style="width: 3rem;">@Model.CountRegistrationPending</span></h3>
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <h4><span class="badge badge-success" style="width: 2.2rem;">@Model.CountAvailable</span></h4>
+                    </div>
+                    <div class="col">
+                        <h4><span class="badge badge-warning" style="width: 2.2rem;">@Model.CountInEvent</span></h4>
+                    </div>
+                    <div class="col">
+                        <h4><span class="badge badge-danger" style="width: 2.2rem;">@Model.CountNotAvailable</span></h4>
+                    </div>
+                    <div class="col">
+                        <h4><span class="badge badge-dark" style="width: 2.2rem;">@Model.CountRegistrationPending</span></h4>
+                    </div>
                 </div>
             </div>
 
@@ -31,24 +33,24 @@
                 <span class="badge badge-light" style="color: @label.RgbColorCode">@label.Name <span style="background-color: white">(<span style="color: green">@label.AvailableCount</span> / <span style="color: red">@label.AssigneeCount</span>)</span></span>
             }
 
-        <div class="row mt-2">
-            <div class="col">
-                <a class="btn btn-primary" data-toggle="collapse" href="#@Model.CollapseId" role="button" aria-expanded="false" aria-controls="@Model.CollapseId">Einsatzkräfte (@Model.TotalStrength)</a>
-                <div class="collapse multi-collapse" id="@Model.CollapseId">
-                    @foreach (var user in Model.Users)
-                    {
-                        @if (user.IsAvailable)
+            <div class="row mt-2">
+                <div class="col">
+                    <a class="btn btn-primary" data-toggle="collapse" href="#@Model.CollapseId" role="button" aria-expanded="false" aria-controls="@Model.CollapseId">Einsatzkräfte (@Model.TotalStrength)</a>
+                    <div class="collapse multi-collapse" id="@Model.CollapseId">
+                        @foreach (var user in Model.Users)
                         {
-                            <span class="badge badge-pill badge-success">@user.Name</span>
+                            @if (user.IsAvailable)
+                            {
+                                <span class="badge badge-pill badge-success">@user.Name</span>
+                            }
+                            else
+                            {
+                                <span class="badge badge-pill badge-danger">@user.Name</span>
+                            }
                         }
-                        else
-                        {
-                            <span class="badge badge-pill badge-danger">@user.Name</span>
-                        }
-                    }
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
    
