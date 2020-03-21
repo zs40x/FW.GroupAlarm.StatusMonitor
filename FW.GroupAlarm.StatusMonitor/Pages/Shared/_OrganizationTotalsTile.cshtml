@@ -1,0 +1,21 @@
+﻿@using System.Globalization
+@Model FW.GroupAlarm.StatusMonitor.Model.OrganizationTotalsModel
+@{
+
+}
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h5><span class="badge badge-success" style="width: 2rem;">@Model.TotalAvailable</span></h5>
+            </div>
+            <div class="col">
+                <h5><span class="badge badge-info" style="width: 2rem;">@Model.TotalInEvent</span></h5>
+            </div>
+            <div class="col">
+                <h5><span class="badge badge-danger" style="width: 2rem;">@Model.TotalNotAvailable</span></h5>
+            </div>
+            <div class="col">
+                <h5><span class="badge badge-dark" style="width: 2rem;">@Model.TotalRegistrationPending</span></h5>
+            </div>
+        </div>
+    </div>
