@@ -3,6 +3,7 @@ using FW.GA.StatusMonitor.Core.ValueTypes.DTO.GroupAlarm;
 using FW.GroupAlarm.StatusMonitor.Model;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -14,6 +15,7 @@ namespace FW.GroupAlarm.StatusMonitor.Pages
         private readonly IOrganizationService _organizationService;
 
         public List<OrganisationUnitModel> OrganisationUnits { get; set; }
+        public OrganizationTotalsModel OrganisationTotals { get; set; }
 
         public IndexModel(ILogger<IndexModel> logger, IOrganizationService organizationService)
         {
@@ -23,7 +25,9 @@ namespace FW.GroupAlarm.StatusMonitor.Pages
 
         public void OnGet()
         {
+            // ToDo: Warning: Temporal coupling!
             OrganisationUnits = RetrieveOrganisationUnits();
+            OrganisationTotals = MakeOrganizationTotals();
         }
 
         private List<OrganisationUnitModel> RetrieveOrganisationUnits()
@@ -55,6 +59,7 @@ namespace FW.GroupAlarm.StatusMonitor.Pages
         public List<OrganisationUnitLabelModel> RetrieveOrganizationLabels(int organisationId, List<User> users)
         {
             return _organizationService.LabelsInOrganisation(organisationId)
+                                        .Where(l => l.Assignees?.Count > 0)
                                         .Select(l => new OrganisationUnitLabelModel
                                         {
                                             Name = l.Name,
@@ -64,6 +69,7 @@ namespace FW.GroupAlarm.StatusMonitor.Pages
                                                                 .Count(u => u.AvailableStatus == 1) ?? 0,
                                             RgbColorCode = l.Color
                                         })
+                                        .OrderByDescending(l => l.RgbColorCode).ThenBy(l => l.Name)
                                         .ToList();
         }
 
@@ -78,6 +84,41 @@ namespace FW.GroupAlarm.StatusMonitor.Pages
                     IsAvailable = u.AvailableStatus == 1
                 })
                 .ToList();
+        }
+
+        private OrganizationTotalsModel MakeOrganizationTotals()
+        {
+            if (OrganisationUnits == null)
+                throw new ArgumentNullException(nameof(OrganisationUnits));
+
+            return new OrganizationTotalsModel
+            {
+                TotalAvailable = OrganisationUnits.Sum(u => u.CountAvailable),
+                TotalInEvent = OrganisationUnits.Sum(u => u.CountInEvent),
+                TotalNotAvailable = OrganisationUnits.Sum(u => u.CountNotAvailable),
+                TotalRegistrationPending = OrganisationUnits.Sum(u => u.CountRegistrationPending),
+                LabelTotals = MakeOrganizationLabelTotals()
+            };
+        }
+
+        private List<OrganisationUnitLabelModel> MakeOrganizationLabelTotals()
+        {
+            if (OrganisationUnits == null)
+                throw new ArgumentNullException(nameof(OrganisationUnits));
+
+            return OrganisationUnits
+                    .SelectMany(u => u.Labels)
+                    .Where(u => !u.Name.ToLower().StartsWith("lg"))
+                    .GroupBy(l => l.Name)
+                    .Select(g => new OrganisationUnitLabelModel
+                    {
+                        Name = g.Key,
+                        RgbColorCode = g.FirstOrDefault()?.RgbColorCode,
+                        AssigneeCount = g.Sum(l => l.AssigneeCount),
+                        AvailableCount = g.Sum(l => l.AvailableCount)
+                    })
+                    .OrderByDescending(l => l.RgbColorCode).ThenBy(l => l.Name)
+                    .ToList();
         }
     }
 }
