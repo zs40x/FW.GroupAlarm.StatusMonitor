@@ -1,7 +1,9 @@
 ﻿using FW.GA.StatusMonitor.Core.Interfaces;
+using FW.GA.StatusMonitor.Core.ValueTypes.DTO.GroupAlarm;
 using FW.GroupAlarm.StatusMonitor.Model;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -30,22 +32,26 @@ namespace FW.GroupAlarm.StatusMonitor.Pages
             return _organizationService.Get()
                                         .Childs?
                                         .Where(c => string.Compare(c.Description, "- n/a -") != 0)
+                                        .Select(c => new
+                                        {
+                                            Child = c,
+                                            Users = _organizationService.UserInOrganisation(c.Id)
+                                        })
                                         .Select(c => new OrganisationUnitModel
                                         {
-                                            Name = c.Name,
-                                            Description = c.Description,
-                                            CountAvailable = c.AvailableUsers.CountAvailable,
-                                            CountInEvent = c.AvailableUsers.CountInEvent,
-                                            CountNotAvailable = c.AvailableUsers.CountNotAvailable,
-                                            Labels = RetrieveOrganizationLabels(c.Id)
+                                            Name = c.Child.Name,
+                                            Description = c.Child.Description,
+                                            CountAvailable = c.Child.AvailableUsers.CountAvailable,
+                                            CountInEvent = c.Child.AvailableUsers.CountInEvent,
+                                            CountNotAvailable = c.Child.AvailableUsers.CountNotAvailable,
+                                            Labels = RetrieveOrganizationLabels(c.Child.Id, c.Users),
+                                            Users = MakeUsers(c.Users)
                                         })
                                         .ToList();
         }
 
-        public List<OrganisationUnitLabelModel> RetrieveOrganizationLabels(int organisationId)
+        public List<OrganisationUnitLabelModel> RetrieveOrganizationLabels(int organisationId, List<User> users)
         {
-            var users = _organizationService.UserInOrganisation(organisationId);
-
             return _organizationService.LabelsInOrganisation(organisationId)
                                         .Select(l => new OrganisationUnitLabelModel
                                         {
@@ -57,6 +63,15 @@ namespace FW.GroupAlarm.StatusMonitor.Pages
                                             RgbColorCode = l.Color
                                         })
                                         .ToList();
+        }
+
+        private List<OrganisationUnitUserModel> MakeUsers(List<User> users)
+        {
+            return users.Select(u => new OrganisationUnitUserModel
+            {
+                Name = $"{u.Surname} {u.Name}",
+                IsAvailable = u.AvailableStatus == 1
+            }).ToList();
         }
     }
 }
