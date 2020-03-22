@@ -39,6 +39,7 @@ namespace FW.GroupAlarm.StatusMonitor.Pages
             return _organizationService.Get()
                                         .Childs?
                                         .Where(c => string.Compare(c.Description, "- n/a -") != 0)
+                                        .Where(c => _authorizationService.HasAccess(User, c.Id))
                                         .Select(c => new
                                         {
                                             Child = c,
