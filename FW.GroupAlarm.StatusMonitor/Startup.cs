@@ -28,7 +28,11 @@ namespace FW.GroupAlarm.StatusMonitor
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddRazorPages();
+            services.AddRazorPages()
+                .AddRazorPagesOptions(options =>
+                {
+                    options.Conventions.AuthorizeFolder("/");
+                });
 
             services.AddSingleton(
                 (IOrganizationService)new OrganisationService(
@@ -37,13 +41,20 @@ namespace FW.GroupAlarm.StatusMonitor
                         personalAccessToken: Configuration.GetValue<string>("GroupAlarmApi:PersonalAccessToken")
                     ));
 
-           services.AddAuthentication(AzureADDefaults.AuthenticationScheme)
-                    .AddAzureAD(options => Configuration.Bind("AzureAd", options));
+            services.AddAuthentication(AzureADDefaults.AuthenticationScheme)
+                    .AddAzureAD(options => Configuration.Bind("AzureAd", options))
+                    .AddCookie();
             services.Configure<OpenIdConnectOptions>(AzureADDefaults.OpenIdScheme, options =>
             {
-                options.Authority = options.Authority + "/v2.0/";
+                //options.Authority = options.Authority + "/v2.0/";
                 options.TokenValidationParameters.ValidateIssuer = false;
             });
+            services.AddAuthorization();
+
+            /*services.AddAuthorization(options =>
+              options.AddPolicy(
+                    "DashboardAccess",
+                    policy => policy.RequireClaim("ACL_FwStatusDashboard")));*/
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -66,10 +77,13 @@ namespace FW.GroupAlarm.StatusMonitor
             app.UseRouting();
 
             app.UseAuthorization();
+            app.UseAuthentication();
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapRazorPages();
+                endpoints
+                    .MapRazorPages()
+                    .RequireAuthorization();
             });
         }
     }
