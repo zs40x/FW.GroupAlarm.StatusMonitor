@@ -1,6 +1,7 @@
 ﻿using FW.GA.StatusMonitor.Core.Interfaces;
 using FW.GA.StatusMonitor.Core.ValueTypes.DTO.GroupAlarm;
 using FW.GroupAlarm.StatusMonitor.Model;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
@@ -10,21 +11,24 @@ using System.Linq;
 
 namespace FW.GroupAlarm.StatusMonitor.Pages
 {
+    //[Authorize(Policy = "DashboardAccess")]
     public class IndexModel : PageModel
     {
         private readonly ILogger<IndexModel> _logger;
         private readonly IOrganizationService _organizationService;
+        private readonly IUnitAuthorizationService _authorizationService;
 
         public List<OrganisationUnitModel> OrganisationUnits { get; set; }
         public OrganizationTotalsModel OrganisationTotals { get; set; }
 
-        public IndexModel(ILogger<IndexModel> logger, IOrganizationService organizationService)
+        public IndexModel(ILogger<IndexModel> logger, IOrganizationService organizationService, IUnitAuthorizationService authorizationService)
         {
             _logger = logger;
             _organizationService = organizationService;
+            _authorizationService = authorizationService;
         }
 
-        public void OnGet()
+        public async void OnGet()
         {
             // ToDo: Warning: Temporal coupling!
             OrganisationUnits = RetrieveOrganisationUnits();
@@ -36,6 +40,7 @@ namespace FW.GroupAlarm.StatusMonitor.Pages
             return _organizationService.Get()
                                         .Childs?
                                         .Where(c => string.Compare(c.Description, "- n/a -") != 0)
+                                        .Where(c => _authorizationService.HasAccess(User, c.Id))
                                         .Select(c => new
                                         {
                                             Child = c,
