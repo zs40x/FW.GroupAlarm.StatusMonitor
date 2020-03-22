@@ -42,13 +42,8 @@ namespace FW.GroupAlarm.StatusMonitor
                     ));
 
             services.AddAuthentication(AzureADDefaults.AuthenticationScheme)
-                    .AddAzureAD(options => Configuration.Bind("AzureAd", options))
-                    .AddCookie();
-            services.Configure<OpenIdConnectOptions>(AzureADDefaults.OpenIdScheme, options =>
-            {
-                //options.Authority = options.Authority + "/v2.0/";
-                options.TokenValidationParameters.ValidateIssuer = false;
-            });
+                .AddAzureAD(options => Configuration.Bind("AzureAd", options));
+
             services.AddAuthorization();
 
             /*services.AddAuthorization(options =>
@@ -76,8 +71,8 @@ namespace FW.GroupAlarm.StatusMonitor
 
             app.UseRouting();
 
-            app.UseAuthorization();
             app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
