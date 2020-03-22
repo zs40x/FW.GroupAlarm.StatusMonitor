@@ -81,7 +81,7 @@ namespace FW.GroupAlarm.StatusMonitor.Pages
                 {
                     Name = !string.IsNullOrEmpty(u.Surname)
                             ? $"{u.Surname}, {u.Name}"
-                            : u.EMail,
+                            : u.EMail.Split("@").First() + "@",
                     IsAvailable = u.AvailableStatus == 1,
                     IsRegistered = !u.Pending
                 })
