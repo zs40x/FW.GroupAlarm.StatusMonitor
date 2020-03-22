@@ -20,7 +20,7 @@ namespace Fw.GA.StatusMonitor.Infrastructure.Authorization
             => MappingAvailable(unitId) ? IsAuthorized(unitId, user) : true;
         
         private bool MappingAvailable(int unitId)
-            => !_authorizationMappings.Any(m => m.UnitId == unitId);
+            => _authorizationMappings.Any(m => m.UnitId == unitId);
 
         private bool IsAuthorized(int unitId, ClaimsPrincipal user)
             =>  user.Claims.Any(c => c.Value.CompareTo(GetAdGroupObjectId(unitId)) == 0);
