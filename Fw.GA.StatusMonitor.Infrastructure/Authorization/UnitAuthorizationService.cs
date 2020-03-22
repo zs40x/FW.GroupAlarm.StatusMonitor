@@ -17,7 +17,7 @@ namespace Fw.GA.StatusMonitor.Infrastructure.Authorization
         }
 
         public bool HasAccess(ClaimsPrincipal user, int unitId)
-            => MappingAvailable(unitId) ? IsAuthorized(unitId, user) : true;
+            => MappingAvailable(unitId) ? IsAuthorized(unitId, user) : false;
         
         private bool MappingAvailable(int unitId)
             => _authorizationMappings.Any(m => m.UnitId == unitId);
