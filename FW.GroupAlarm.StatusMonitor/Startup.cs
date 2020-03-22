@@ -4,6 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Fw.GA.StatusMonitor.Infrastructure.GroupAlarmApi;
 using FW.GA.StatusMonitor.Core.Interfaces;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.AzureAD.UI;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -33,6 +36,14 @@ namespace FW.GroupAlarm.StatusMonitor
                         webApiKey: Configuration.GetValue<string>("GroupAlarmApi:OrganizationApiKey"),
                         personalAccessToken: Configuration.GetValue<string>("GroupAlarmApi:PersonalAccessToken")
                     ));
+
+           services.AddAuthentication(AzureADDefaults.AuthenticationScheme)
+                    .AddAzureAD(options => Configuration.Bind("AzureAd", options));
+            services.Configure<OpenIdConnectOptions>(AzureADDefaults.OpenIdScheme, options =>
+            {
+                options.Authority = options.Authority + "/v2.0/";
+                options.TokenValidationParameters.ValidateIssuer = false;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
