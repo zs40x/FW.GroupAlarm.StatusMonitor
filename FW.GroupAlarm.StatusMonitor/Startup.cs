@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Authentication.AzureAD.UI;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -88,6 +89,12 @@ namespace FW.GroupAlarm.StatusMonitor
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapGet("/logout", context =>
+                {
+                    context.SignOutAsync().GetAwaiter().GetResult();
+                    context.Response.Redirect("/");
+                    return context.Response.WriteAsync("Logged out");
+                });
                 endpoints
                     .MapRazorPages()
                     .RequireAuthorization();
