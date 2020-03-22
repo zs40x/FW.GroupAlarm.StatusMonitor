@@ -29,9 +29,6 @@ namespace FW.GroupAlarm.StatusMonitor.Pages
 
         public async void OnGet()
         {
-            
-            var ok = await _authorizationService.AuthorizeAsync(User, "6372");
-            var x = ok.Succeeded;
             // ToDo: Warning: Temporal coupling!
             OrganisationUnits = RetrieveOrganisationUnits();
             OrganisationTotals = MakeOrganizationTotals();
