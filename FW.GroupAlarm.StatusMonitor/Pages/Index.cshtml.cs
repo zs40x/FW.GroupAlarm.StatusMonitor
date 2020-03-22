@@ -76,12 +76,14 @@ namespace FW.GroupAlarm.StatusMonitor.Pages
         private List<OrganisationUnitUserModel> MakeUsers(List<User> users)
         {
             return users
-                .Where(u => !u.Pending)
-                .OrderBy(u => u.Surname)
+                .OrderBy(u => u.Pending).ThenBy(u => u.Surname)
                 .Select(u => new OrganisationUnitUserModel
                 {
-                    Name = $"{u.Surname}, {u.Name}",
-                    IsAvailable = u.AvailableStatus == 1
+                    Name = !string.IsNullOrEmpty(u.Surname)
+                            ? $"{u.Surname}, {u.Name}"
+                            : u.EMail,
+                    IsAvailable = u.AvailableStatus == 1,
+                    IsRegistered = !u.Pending
                 })
                 .ToList();
         }
