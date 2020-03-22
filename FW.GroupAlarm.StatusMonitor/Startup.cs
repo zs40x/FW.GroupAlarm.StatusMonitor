@@ -2,14 +2,21 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Fw.GA.StatusMonitor.Infrastructure.Authorization;
 using Fw.GA.StatusMonitor.Infrastructure.GroupAlarmApi;
 using FW.GA.StatusMonitor.Core.Interfaces;
+using FW.GA.StatusMonitor.Core.ValueTypes.DTO.Authorization;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.AzureAD.UI;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
 
 namespace FW.GroupAlarm.StatusMonitor
 {
@@ -25,14 +32,37 @@ namespace FW.GroupAlarm.StatusMonitor
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddRazorPages();
+            services.AddRazorPages()
+                .AddRazorPagesOptions(options =>
+                {
+                    options.Conventions.AuthorizeFolder("/");
+                });
 
+            services.AddSingleton(
+                (IUnitAuthorizationService)new UnitAuthorizationService(
+                    GetAuthorizationMappings()));
             services.AddSingleton(
                 (IOrganizationService)new OrganisationService(
                         webServiceBaseUrl: Configuration.GetValue<string>("GroupAlarmApi:BaseUrl"),
                         webApiKey: Configuration.GetValue<string>("GroupAlarmApi:OrganizationApiKey"),
                         personalAccessToken: Configuration.GetValue<string>("GroupAlarmApi:PersonalAccessToken")
                     ));
+
+            services.AddAuthentication(AzureADDefaults.AuthenticationScheme)
+                    .AddAzureAD(options => Configuration.Bind("AzureAd", options));
+        }
+
+        private List<AuthorizationMapping> GetAuthorizationMappings()
+        {
+            return Configuration
+                                .GetSection("ACLMappings")
+                                .GetChildren()
+                                .Select(c => new AuthorizationMapping
+                                {
+                                    UnitId = int.Parse(c.Key),
+                                    AdGroupObjectId = c.Value
+                                })
+                                .ToList();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -54,11 +84,20 @@ namespace FW.GroupAlarm.StatusMonitor
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapRazorPages();
+                endpoints.MapGet("/logout", context =>
+                {
+                    context.SignOutAsync().GetAwaiter().GetResult();
+                    context.Response.Redirect("/");
+                    return context.Response.WriteAsync("Logged out");
+                });
+                endpoints
+                    .MapRazorPages()
+                    .RequireAuthorization();
             });
         }
     }
