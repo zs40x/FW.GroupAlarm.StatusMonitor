@@ -1,6 +1,7 @@
 ﻿using FW.GA.StatusMonitor.Core.Interfaces;
 using FW.GA.StatusMonitor.Core.ValueTypes.DTO.GroupAlarm;
 using FW.GroupAlarm.StatusMonitor.Model;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using System;
@@ -76,12 +77,14 @@ namespace FW.GroupAlarm.StatusMonitor.Pages
         private List<OrganisationUnitUserModel> MakeUsers(List<User> users)
         {
             return users
-                .Where(u => !u.Pending)
-                .OrderBy(u => u.Surname)
+                .OrderBy(u => u.Pending).ThenBy(u => u.Surname)
                 .Select(u => new OrganisationUnitUserModel
                 {
-                    Name = $"{u.Surname}, {u.Name}",
-                    IsAvailable = u.AvailableStatus == 1
+                    Name = !string.IsNullOrEmpty(u.Surname)
+                            ? $"{u.Surname}, {u.Name}"
+                            : u.EMail.Split("@").First() + "@",
+                    IsAvailable = u.AvailableStatus == 1,
+                    IsRegistered = !u.Pending
                 })
                 .ToList();
         }

@@ -31,7 +31,11 @@
                 <div class="col">
                     @foreach (var user in Model.Users)
                     {
-                        @if (user.IsAvailable)
+                        @if (!user.IsRegistered)
+                        {
+                            <span class="badge badge-pill badge-secondary">@user.Name</span>
+                        }
+                        else if (user.IsAvailable)
                         {
                             <span class="badge badge-pill badge-success">@user.Name</span>
                         }
