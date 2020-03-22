@@ -10,22 +10,28 @@ using System.Linq;
 
 namespace FW.GroupAlarm.StatusMonitor.Pages
 {
+    //[Authorize(Policy = "DashboardAccess")]
     public class IndexModel : PageModel
     {
         private readonly ILogger<IndexModel> _logger;
         private readonly IOrganizationService _organizationService;
+        private readonly IAuthorizationService _authorizationService;
 
         public List<OrganisationUnitModel> OrganisationUnits { get; set; }
         public OrganizationTotalsModel OrganisationTotals { get; set; }
 
-        public IndexModel(ILogger<IndexModel> logger, IOrganizationService organizationService)
+        public IndexModel(ILogger<IndexModel> logger, IOrganizationService organizationService, IAuthorizationService authorizationService)
         {
             _logger = logger;
             _organizationService = organizationService;
+            _authorizationService = authorizationService;
         }
 
-        public void OnGet()
+        public async void OnGet()
         {
+            
+            var ok = await _authorizationService.AuthorizeAsync(User, "6372");
+            var x = ok.Succeeded;
             // ToDo: Warning: Temporal coupling!
             OrganisationUnits = RetrieveOrganisationUnits();
             OrganisationTotals = MakeOrganizationTotals();

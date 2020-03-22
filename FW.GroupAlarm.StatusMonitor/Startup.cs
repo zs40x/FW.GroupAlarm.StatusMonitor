@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
 
 namespace FW.GroupAlarm.StatusMonitor
 {
@@ -34,6 +35,12 @@ namespace FW.GroupAlarm.StatusMonitor
                     options.Conventions.AuthorizeFolder("/");
                 });
 
+            var y = Configuration
+                    .GetSection("ACLMappings")
+                    .GetChildren()
+                    .Select(c => (c.Key, c.Value))
+                    .ToList();
+
             services.AddSingleton(
                 (IOrganizationService)new OrganisationService(
                         webServiceBaseUrl: Configuration.GetValue<string>("GroupAlarmApi:BaseUrl"),
@@ -44,12 +51,16 @@ namespace FW.GroupAlarm.StatusMonitor
             services.AddAuthentication(AzureADDefaults.AuthenticationScheme)
                 .AddAzureAD(options => Configuration.Bind("AzureAd", options));
 
-            services.AddAuthorization();
-
-            /*services.AddAuthorization(options =>
-              options.AddPolicy(
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy(
                     "DashboardAccess",
-                    policy => policy.RequireClaim("ACL_FwStatusDashboard")));*/
+                    policy => policy.RequireClaim("ACL_FwStatusDashboard"));
+                foreach (var x in y)
+                {
+                    options.AddPolicy(x.Key, policy => policy.RequireClaim(x.Value));
+                }
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
