@@ -1,4 +1,4 @@
-using FW.GA.StatusMonitor.Core.Interfaces;
+﻿using FW.GA.StatusMonitor.Core.Interfaces;
 using FW.GA.StatusMonitor.Core.ValueTypes.DTO.GroupAlarm;
 using FW.GroupAlarm.StatusMonitor.Model;
 using Microsoft.AspNetCore.Authentication;
@@ -89,6 +89,7 @@ namespace FW.GroupAlarm.StatusMonitor.Pages
                             ? $"{u.Surname}, {u.Name}"
                             : u.EMail.Split("@").First() + "@",
                     IsAvailable = u.AvailableStatus == 1,
+                    IsInEvent = u.AvailableStatus == 2,
                     IsRegistered = !u.Pending
                 })
                 .ToList();
