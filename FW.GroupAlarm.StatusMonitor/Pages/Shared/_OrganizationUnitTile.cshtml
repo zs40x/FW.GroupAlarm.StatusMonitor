@@ -39,6 +39,10 @@
                         {
                             <span class="badge badge-pill badge-success">@user.Name</span>
                         }
+                        else if (user.IsInEvent)
+                        {
+                            <span class="badge badge-pill badge-warning">@user.Name</span>
+                        }
                         else
                         {
                             <span class="badge badge-pill badge-danger">@user.Name</span>
