@@ -51,7 +51,7 @@ namespace FW.GroupAlarm.StatusMonitor.Pages
                                             Id = c.Child.Id,
                                             Name = c.Child.Name,
                                             Description = c.Child.Description,
-                                            CountAvailable = c.Users.Count(u => u.AvailableStatus == 1),
+                                            CountAvailable = c.Users.Count(u => u.AvailableStatus > 0),
                                             CountInEvent = c.Child.AvailableUsers.CountInEvent,
                                             CountNotAvailable = c.Users.Count(u => !u.Pending && u.AvailableStatus == 0),
                                             CountRegistrationPending = c.Users.Count(c => c.Pending),
@@ -89,6 +89,7 @@ namespace FW.GroupAlarm.StatusMonitor.Pages
                             ? $"{u.Surname}, {u.Name}"
                             : u.EMail.Split("@").First() + "@",
                     IsAvailable = u.AvailableStatus == 1,
+                    IsInEvent = u.AvailableStatus == 2,
                     IsRegistered = !u.Pending
                 })
                 .ToList();
