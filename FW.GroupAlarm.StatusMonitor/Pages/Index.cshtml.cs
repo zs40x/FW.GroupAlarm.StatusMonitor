@@ -1,4 +1,4 @@
-﻿using FW.GA.StatusMonitor.Core.Interfaces;
+using FW.GA.StatusMonitor.Core.Interfaces;
 using FW.GA.StatusMonitor.Core.ValueTypes.DTO.GroupAlarm;
 using FW.GroupAlarm.StatusMonitor.Model;
 using Microsoft.AspNetCore.Authentication;
@@ -51,7 +51,7 @@ namespace FW.GroupAlarm.StatusMonitor.Pages
                                             Id = c.Child.Id,
                                             Name = c.Child.Name,
                                             Description = c.Child.Description,
-                                            CountAvailable = c.Users.Count(u => u.AvailableStatus == 1),
+                                            CountAvailable = c.Users.Count(u => u.AvailableStatus > 0),
                                             CountInEvent = c.Child.AvailableUsers.CountInEvent,
                                             CountNotAvailable = c.Users.Count(u => !u.Pending && u.AvailableStatus == 0),
                                             CountRegistrationPending = c.Users.Count(c => c.Pending),
