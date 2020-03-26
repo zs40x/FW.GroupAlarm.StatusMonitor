@@ -7,6 +7,7 @@
   <ItemGroup>
     <ProjectReference Include="..\FW.GA.StatusMonitor.Core\FW.GA.StatusMonitor.Core.csproj" />
     <ProjectReference Include="..\Fw.GA.StatusMonitor.Infrastructure\Fw.GA.StatusMonitor.Infrastructure.csproj" />
+    <ProjectReference Include="..\FW.GA.StatusMonitor.Logic\FW.GA.StatusMonitor.Logic.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -15,6 +16,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Authentication.AzureAD.UI" Version="3.1.2" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.1" />
   </ItemGroup>
 
 
