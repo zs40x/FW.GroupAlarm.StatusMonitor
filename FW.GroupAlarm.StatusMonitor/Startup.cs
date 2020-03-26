@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Fw.GA.StatusMonitor.Infrastructure.Authorization;
 using Fw.GA.StatusMonitor.Infrastructure.GroupAlarmApi;
 using FW.GA.StatusMonitor.Core.Interfaces;
@@ -9,15 +5,14 @@ using FW.GA.StatusMonitor.Core.ValueTypes.DTO.Authorization;
 using FW.GA.StatusMonitor.Logic.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.AzureAD.UI;
-using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Options;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace FW.GroupAlarm.StatusMonitor
 {
