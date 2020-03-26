@@ -13,17 +13,19 @@ namespace FW.GroupAlarm.StatusMonitor.Pages
     public class IndexModel : PageModel
     {
         private readonly ILogger<IndexModel> _logger;
+        private readonly IOrganizationStatusService _organizationStatusService;
         private readonly IOrganizationDataService _organizationService;
         private readonly IUnitAuthorizationService _authorizationService;
 
         public List<OrganizationUnitModel> OrganizationUnits { get; set; }
         public OrganizationTotalsModel OrganizationTotals { get; set; }
 
-        public IndexModel(ILogger<IndexModel> logger, IOrganizationDataService organizationService, IUnitAuthorizationService authorizationService)
+        public IndexModel(ILogger<IndexModel> logger, IOrganizationDataService organizationService, IUnitAuthorizationService authorizationService, IOrganizationStatusService organizationStatusService)
         {
             _logger = logger;
             _organizationService = organizationService;
             _authorizationService = authorizationService;
+            _organizationStatusService = organizationStatusService;
         }
 
         public void OnGet()
