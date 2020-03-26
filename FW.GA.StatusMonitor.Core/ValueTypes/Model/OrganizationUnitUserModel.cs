@@ -1,4 +1,4 @@
-﻿namespace FW.GroupAlarm.StatusMonitor.Model
+﻿namespace FW.GA.StatusMonitor.Core.ValueTypes.Model
 {
     public class OrganizationUnitUserModel
     {
