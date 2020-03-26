@@ -3,16 +3,18 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29521.150
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FW.GroupAlarm.StatusMonitor", "FW.GroupAlarm.StatusMonitor\FW.GroupAlarm.StatusMonitor.csproj", "{A7D93495-FA33-49C7-B3E1-247442F9B019}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FW.GroupAlarm.StatusMonitor", "FW.GroupAlarm.StatusMonitor\FW.GroupAlarm.StatusMonitor.csproj", "{A7D93495-FA33-49C7-B3E1-247442F9B019}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FW.GA.StatusMonitor.Core", "FW.GA.StatusMonitor.Core\FW.GA.StatusMonitor.Core.csproj", "{585C8B91-CD59-4E3D-85F9-BDF75C558CCA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FW.GA.StatusMonitor.Core", "FW.GA.StatusMonitor.Core\FW.GA.StatusMonitor.Core.csproj", "{585C8B91-CD59-4E3D-85F9-BDF75C558CCA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fw.GA.StatusMonitor.Infrastructure", "Fw.GA.StatusMonitor.Infrastructure\Fw.GA.StatusMonitor.Infrastructure.csproj", "{C5E7BAF4-14E7-4357-951B-A045AE166BA5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fw.GA.StatusMonitor.Infrastructure", "Fw.GA.StatusMonitor.Infrastructure\Fw.GA.StatusMonitor.Infrastructure.csproj", "{C5E7BAF4-14E7-4357-951B-A045AE166BA5}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2381A3AA-FCA4-4EF7-86F8-A37975C9A025}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FW.GA.StatusMonitor.Logic", "FW.GA.StatusMonitor.Logic\FW.GA.StatusMonitor.Logic.csproj", "{24127BCC-00B1-498B-A5F6-37FDE5316087}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -32,6 +34,10 @@ Global
 		{C5E7BAF4-14E7-4357-951B-A045AE166BA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C5E7BAF4-14E7-4357-951B-A045AE166BA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C5E7BAF4-14E7-4357-951B-A045AE166BA5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{24127BCC-00B1-498B-A5F6-37FDE5316087}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{24127BCC-00B1-498B-A5F6-37FDE5316087}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{24127BCC-00B1-498B-A5F6-37FDE5316087}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{24127BCC-00B1-498B-A5F6-37FDE5316087}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
