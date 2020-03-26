@@ -6,6 +6,7 @@ using Fw.GA.StatusMonitor.Infrastructure.Authorization;
 using Fw.GA.StatusMonitor.Infrastructure.GroupAlarmApi;
 using FW.GA.StatusMonitor.Core.Interfaces;
 using FW.GA.StatusMonitor.Core.ValueTypes.DTO.Authorization;
+using FW.GA.StatusMonitor.Logic.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.AzureAD.UI;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
@@ -47,6 +48,7 @@ namespace FW.GroupAlarm.StatusMonitor
                         webApiKey: Configuration.GetValue<string>("GroupAlarmApi:OrganizationApiKey"),
                         personalAccessToken: Configuration.GetValue<string>("GroupAlarmApi:PersonalAccessToken")
                     ));
+            services.AddScoped<IOrganizationStatusService, OrganizationStatusService>();
 
             services.AddAuthentication(AzureADDefaults.AuthenticationScheme)
                     .AddAzureAD(options => Configuration.Bind("AzureAd", options));
