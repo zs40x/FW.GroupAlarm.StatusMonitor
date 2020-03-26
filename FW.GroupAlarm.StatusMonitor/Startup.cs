@@ -95,6 +95,7 @@ namespace FW.GroupAlarm.StatusMonitor
                 endpoints
                     .MapRazorPages()
                     .RequireAuthorization();
+                endpoints.MapDefaultControllerRoute();
             });
         }
     }
