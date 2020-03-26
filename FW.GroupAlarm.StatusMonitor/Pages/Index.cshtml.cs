@@ -28,7 +28,7 @@ namespace FW.GroupAlarm.StatusMonitor.Pages
             _authorizationService = authorizationService;
         }
 
-        public async void OnGet()
+        public void OnGet()
         {
             // ToDo: Warning: Temporal coupling!
             OrganisationUnits = RetrieveOrganisationUnits();
