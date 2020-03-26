@@ -6,13 +6,13 @@ using System.Net.Http;
 
 namespace Fw.GA.StatusMonitor.Infrastructure.GroupAlarmApi
 {
-    public class OrganisationService : IOrganizationService
+    public class OrganizationService : IOrganizationService
     {
         private readonly string _webServiceBaseUrl;
         private readonly string _webApiKey;
         private readonly string _personalAccessToken;
 
-        public OrganisationService(string webServiceBaseUrl, string webApiKey, string personalAccessToken)
+        public OrganizationService(string webServiceBaseUrl, string webApiKey, string personalAccessToken)
         {
             _webServiceBaseUrl = webServiceBaseUrl;
             _webApiKey = webApiKey;
@@ -32,7 +32,7 @@ namespace Fw.GA.StatusMonitor.Infrastructure.GroupAlarmApi
             }
         }
 
-        public List<Label> LabelsInOrganisation(int organizationId)
+        public List<Label> LabelsInOrganization(int organizationId)
         {
             using (var client = MakeHttpClient())
             using (var request = new HttpRequestMessage(HttpMethod.Get, $"{_webServiceBaseUrl}/labels?organization={organizationId}"))
@@ -45,7 +45,7 @@ namespace Fw.GA.StatusMonitor.Infrastructure.GroupAlarmApi
             }
         }
 
-        public List<User> UserInOrganisation(int organizationId)
+        public List<User> UserInOrganization(int organizationId)
         {
             using (var client = MakeHttpClient())
             using (var request = new HttpRequestMessage(HttpMethod.Get, $"{_webServiceBaseUrl}/users?organization={organizationId}"))

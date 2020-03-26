@@ -18,8 +18,8 @@ namespace FW.GroupAlarm.StatusMonitor.Pages
         private readonly IOrganizationService _organizationService;
         private readonly IUnitAuthorizationService _authorizationService;
 
-        public List<OrganisationUnitModel> OrganisationUnits { get; set; }
-        public OrganizationTotalsModel OrganisationTotals { get; set; }
+        public List<OrganizationUnitModel> OrganizationUnits { get; set; }
+        public OrganizationTotalsModel OrganizationTotals { get; set; }
 
         public IndexModel(ILogger<IndexModel> logger, IOrganizationService organizationService, IUnitAuthorizationService authorizationService)
         {
@@ -31,11 +31,11 @@ namespace FW.GroupAlarm.StatusMonitor.Pages
         public void OnGet()
         {
             // ToDo: Warning: Temporal coupling!
-            OrganisationUnits = RetrieveOrganisationUnits();
-            OrganisationTotals = MakeOrganizationTotals();
+            OrganizationUnits = RetrieveOrganizationUnits();
+            OrganizationTotals = MakeOrganizationTotals();
         }
 
-        private List<OrganisationUnitModel> RetrieveOrganisationUnits()
+        private List<OrganizationUnitModel> RetrieveOrganizationUnits()
         {
             return _organizationService.Get()
                                         .Childs?
@@ -44,9 +44,9 @@ namespace FW.GroupAlarm.StatusMonitor.Pages
                                         .Select(c => new
                                         {
                                             Child = c,
-                                            Users = _organizationService.UserInOrganisation(c.Id)
+                                            Users = _organizationService.UserInOrganization(c.Id)
                                         })
-                                        .Select(c => new OrganisationUnitModel
+                                        .Select(c => new OrganizationUnitModel
                                         {
                                             Id = c.Child.Id,
                                             Name = c.Child.Name,
@@ -62,11 +62,11 @@ namespace FW.GroupAlarm.StatusMonitor.Pages
                                         .ToList();
         }
 
-        public List<OrganisationUnitLabelModel> RetrieveOrganizationLabels(int organisationId, List<User> users)
+        public List<OrganizationUnitLabelModel> RetrieveOrganizationLabels(int organizationId, List<User> users)
         {
-            return _organizationService.LabelsInOrganisation(organisationId)
+            return _organizationService.LabelsInOrganization(organizationId)
                                         .Where(l => l.Assignees?.Count > 0)
-                                        .Select(l => new OrganisationUnitLabelModel
+                                        .Select(l => new OrganizationUnitLabelModel
                                         {
                                             Name = l.Name,
                                             AssigneeCount = l.Assignees?.Count ?? 0,
@@ -79,11 +79,11 @@ namespace FW.GroupAlarm.StatusMonitor.Pages
                                         .ToList();
         }
 
-        private List<OrganisationUnitUserModel> MakeUsers(List<User> users)
+        private List<OrganizationUnitUserModel> MakeUsers(List<User> users)
         {
             return users
                 .OrderBy(u => u.Pending).ThenBy(u => u.Surname)
-                .Select(u => new OrganisationUnitUserModel
+                .Select(u => new OrganizationUnitUserModel
                 {
                     Name = !string.IsNullOrEmpty(u.Surname)
                             ? $"{u.Surname}, {u.Name}"
@@ -97,29 +97,29 @@ namespace FW.GroupAlarm.StatusMonitor.Pages
 
         private OrganizationTotalsModel MakeOrganizationTotals()
         {
-            if (OrganisationUnits == null)
-                throw new ArgumentNullException(nameof(OrganisationUnits));
+            if (OrganizationUnits == null)
+                throw new ArgumentNullException(nameof(OrganizationUnits));
 
             return new OrganizationTotalsModel
             {
-                TotalAvailable = OrganisationUnits.Sum(u => u.CountAvailable),
-                TotalInEvent = OrganisationUnits.Sum(u => u.CountInEvent),
-                TotalNotAvailable = OrganisationUnits.Sum(u => u.CountNotAvailable),
-                TotalRegistrationPending = OrganisationUnits.Sum(u => u.CountRegistrationPending),
+                TotalAvailable = OrganizationUnits.Sum(u => u.CountAvailable),
+                TotalInEvent = OrganizationUnits.Sum(u => u.CountInEvent),
+                TotalNotAvailable = OrganizationUnits.Sum(u => u.CountNotAvailable),
+                TotalRegistrationPending = OrganizationUnits.Sum(u => u.CountRegistrationPending),
                 LabelTotals = MakeOrganizationLabelTotals()
             };
         }
 
-        private List<OrganisationUnitLabelModel> MakeOrganizationLabelTotals()
+        private List<OrganizationUnitLabelModel> MakeOrganizationLabelTotals()
         {
-            if (OrganisationUnits == null)
-                throw new ArgumentNullException(nameof(OrganisationUnits));
+            if (OrganizationUnits == null)
+                throw new ArgumentNullException(nameof(OrganizationUnits));
 
-            return OrganisationUnits
+            return OrganizationUnits
                     .SelectMany(u => u.Labels)
                     .Where(u => !u.Name.ToLower().StartsWith("lg"))
                     .GroupBy(l => l.Name)
-                    .Select(g => new OrganisationUnitLabelModel
+                    .Select(g => new OrganizationUnitLabelModel
                     {
                         Name = g.Key,
                         RgbColorCode = g.FirstOrDefault()?.RgbColorCode,

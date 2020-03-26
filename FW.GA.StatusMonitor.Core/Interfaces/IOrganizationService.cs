@@ -6,7 +6,7 @@ namespace FW.GA.StatusMonitor.Core.Interfaces
     public interface IOrganizationService
     {
         OrganizationStructure Get();
-        List<Label> LabelsInOrganisation(int organizationId);
-        List<User> UserInOrganisation(int organizationId);
+        List<Label> LabelsInOrganization(int organizationId);
+        List<User> UserInOrganization(int organizationId);
     }
 }

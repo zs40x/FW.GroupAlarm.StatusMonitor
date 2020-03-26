@@ -4,13 +4,13 @@
     ViewData["Title"] = "Dashboard";
 }
 
-@(await Html.PartialAsync("_OrganizationTotals", Model.OrganisationTotals))
+@(await Html.PartialAsync("_OrganizationTotals", Model.OrganizationTotals))
 
 <div class="cardcontainer-fluid mt-3">
     <div class="row justify-content-center">
-        @foreach (var organisationUnit in Model.OrganisationUnits)
+        @foreach (var organizationUnit in Model.OrganizationUnits)
         {
-            @(await Html.PartialAsync("_OrganizationUnitTile", organisationUnit))
+            @(await Html.PartialAsync("_OrganizationUnitTile", organizationUnit))
         }
     </div>
 </div>
