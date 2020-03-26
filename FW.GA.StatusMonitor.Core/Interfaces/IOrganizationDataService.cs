@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace FW.GA.StatusMonitor.Core.Interfaces
 {
-    public interface IOrganizationService
+    public interface IOrganizationDataService
     {
         OrganizationStructure Get();
         List<Label> LabelsInOrganization(int organizationId);

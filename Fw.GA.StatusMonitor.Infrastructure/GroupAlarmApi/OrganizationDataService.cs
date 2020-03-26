@@ -6,13 +6,13 @@ using System.Net.Http;
 
 namespace Fw.GA.StatusMonitor.Infrastructure.GroupAlarmApi
 {
-    public class OrganizationService : IOrganizationService
+    public class OrganizationDataService : IOrganizationDataService
     {
         private readonly string _webServiceBaseUrl;
         private readonly string _webApiKey;
         private readonly string _personalAccessToken;
 
-        public OrganizationService(string webServiceBaseUrl, string webApiKey, string personalAccessToken)
+        public OrganizationDataService(string webServiceBaseUrl, string webApiKey, string personalAccessToken)
         {
             _webServiceBaseUrl = webServiceBaseUrl;
             _webApiKey = webApiKey;

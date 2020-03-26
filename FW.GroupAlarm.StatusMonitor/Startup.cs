@@ -42,7 +42,7 @@ namespace FW.GroupAlarm.StatusMonitor
                 (IUnitAuthorizationService)new UnitAuthorizationService(
                     GetAuthorizationMappings()));
             services.AddSingleton(
-                (IOrganizationService)new OrganizationService(
+                (IOrganizationDataService)new OrganizationDataService(
                         webServiceBaseUrl: Configuration.GetValue<string>("GroupAlarmApi:BaseUrl"),
                         webApiKey: Configuration.GetValue<string>("GroupAlarmApi:OrganizationApiKey"),
                         personalAccessToken: Configuration.GetValue<string>("GroupAlarmApi:PersonalAccessToken")
