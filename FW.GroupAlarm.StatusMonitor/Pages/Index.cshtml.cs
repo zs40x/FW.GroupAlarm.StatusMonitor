@@ -1,8 +1,6 @@
 ﻿using FW.GA.StatusMonitor.Core.Interfaces;
 using FW.GA.StatusMonitor.Core.ValueTypes.DTO.GroupAlarm;
 using FW.GA.StatusMonitor.Core.ValueTypes.Model;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using System;
