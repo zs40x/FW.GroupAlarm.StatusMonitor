@@ -24,7 +24,7 @@ jobs:
       run: dotnet build --configuration Release
 
     - name: dotnet publish
-      run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
+      run: dotnet publish -c Release -o ${{ github.workspace }}/myapp
 
     - name: Deploy to Azure Web App
       uses: azure/webapps-deploy@v1
@@ -32,4 +32,4 @@ jobs:
         app-name: 'fw18-status(staging)'
         slot-name: 'staging'
         publish-profile: ${{ secrets.AzureAppService_PublishProfile_ea2d3256c89644828a2c396de908c1ea }}
-        package: ${{env.DOTNET_ROOT}}/myapp 
+        package: ${{ github.workspace }}/myapp 
