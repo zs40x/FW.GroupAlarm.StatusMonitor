@@ -69,7 +69,7 @@ namespace FW.GA.StatusMonitor.Logic.Services
                                             AssigneeCount = l.Assignees?.Count ?? 0,
                                             AvailableCount = l.Assignees?
                                                                 .Select(a => users.FirstOrDefault(u => u.Id == a))
-                                                                .Count(u => u.AvailableStatus == 1) ?? 0,
+                                                                .Count(u => u?.AvailableStatus == 1) ?? 0,
                                             RgbColorCode = l.Color
                                         })
                                         .OrderByDescending(l => l.RgbColorCode).ThenBy(l => l.Name)
