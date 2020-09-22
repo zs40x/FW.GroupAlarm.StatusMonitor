@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 
-namespace FW.GroupAlarm.StatusMonitor.Model
+namespace FW.GA.StatusMonitor.Core.ValueTypes.Model
 {
-    public class OrganisationUnitModel
+    public class OrganizationUnitModel
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -11,8 +11,8 @@ namespace FW.GroupAlarm.StatusMonitor.Model
         public int CountInEvent { get; set; }
         public int CountNotAvailable { get; set; }
         public int CountRegistrationPending { get; set; }
-        public List<OrganisationUnitLabelModel> Labels { get; set; }
-        public List<OrganisationUnitUserModel> Users { get; set; }
+        public List<OrganizationUnitLabelModel> Labels { get; set; }
+        public List<OrganizationUnitUserModel> Users { get; set; }
         public int TotalStrength { get; set; }
 
         public string CollapseId => $"unitUsers{Id}";

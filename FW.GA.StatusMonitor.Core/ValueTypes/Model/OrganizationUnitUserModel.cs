@@ -1,6 +1,6 @@
-﻿namespace FW.GroupAlarm.StatusMonitor.Model
+﻿namespace FW.GA.StatusMonitor.Core.ValueTypes.Model
 {
-    public class OrganisationUnitUserModel
+    public class OrganizationUnitUserModel
     {
         public string Name { get; set; }
         public bool IsAvailable { get; set; }
